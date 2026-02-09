@@ -1285,7 +1285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0558f8321f829411d9ead2755dd54f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  torqueAmount: 1
+  torqueAmount: 3
 --- !u!114 &1996576743
 MonoBehaviour:
   m_ObjectHideFlags: 0
