@@ -5,12 +5,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float torqueAmount = 1f;
     [SerializeField] float baseSpeed = 15f;
     [SerializeField] float boostSpeed = 30f;
+    [SerializeField] ParticleSystem powerupParticles;
     InputAction moveAction;
     Rigidbody2D myRigidbody2D;
     SurfaceEffector2D surfaceEffector2D;
     Vector2 moveVector;
 
-    ScoreManager scoreManager;
+    [SerializeField] ScoreManager scoreManager;
+    int activePowerupCount = 0;
 
     bool canControlPlayer = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,7 +24,6 @@ public class PlayerController : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         myRigidbody2D = GetComponent<Rigidbody2D>();
         surfaceEffector2D = FindFirstObjectByType<SurfaceEffector2D>();
-        scoreManager = FindFirstObjectByType<ScoreManager>();
     }
 
     // Update is called once per frame
@@ -80,6 +81,10 @@ public class PlayerController : MonoBehaviour
 
     public void ActivatePowerup(PowerupSO powerup)
     {
+        activePowerupCount++;
+        if (activePowerupCount == 1){
+            powerupParticles.Play();
+        }
         if (powerup.GetPowerupType() == "speed")
         {
             baseSpeed += powerup.GetValueChange();
@@ -88,6 +93,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public void DeactivatePowerup(PowerupSO powerup){
+        activePowerupCount--;
+        if (activePowerupCount == 0){
+            powerupParticles.Stop();
+        }
         if (powerup.GetPowerupType() == "speed")
         {
             baseSpeed -= powerup.GetValueChange();
