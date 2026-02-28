@@ -42,11 +42,11 @@ public class PlayerController : MonoBehaviour
     {
         if (moveVector.x > 0)
         {
-            myRigidbody2D.AddTorque(-torqueAmount);
+            myRigidbody2D.AddTorque(-torqueAmount * 360 * Time.deltaTime);
         }
         else if (moveVector.x < 0)
         {
-            myRigidbody2D.AddTorque(torqueAmount);
+            myRigidbody2D.AddTorque(torqueAmount * 360 * Time.deltaTime);
         }
     }
     void BoostPlayer()
