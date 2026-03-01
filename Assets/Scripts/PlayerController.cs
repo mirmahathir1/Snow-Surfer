@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     int activePowerupCount = 0;
 
     bool canControlPlayer = true;
+    float mobileRotationInput = 0f; // -1 = left, 1 = right, 0 = none
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     float previousRotation = 0f;
     float totalRotation = 0f;
@@ -40,14 +41,21 @@ public class PlayerController : MonoBehaviour
 
     void RotatePlayer()
     {
-        if (moveVector.x > 0)
+        float rotationInput = moveVector.x != 0 ? moveVector.x : mobileRotationInput;
+
+        if (rotationInput > 0)
         {
             myRigidbody2D.AddTorque(-torqueAmount * 360 * Time.deltaTime);
         }
-        else if (moveVector.x < 0)
+        else if (rotationInput < 0)
         {
             myRigidbody2D.AddTorque(torqueAmount * 360 * Time.deltaTime);
         }
+    }
+
+    public void SetMobileRotation(float direction)
+    {
+        mobileRotationInput = direction;
     }
     void BoostPlayer()
     {
