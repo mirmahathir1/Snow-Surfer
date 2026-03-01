@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     bool canControlPlayer = true;
     float mobileRotationInput = 0f; // -1 = left, 1 = right, 0 = none
+    bool mobileBoostActive = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     float previousRotation = 0f;
     float totalRotation = 0f;
@@ -59,14 +60,19 @@ public class PlayerController : MonoBehaviour
     }
     void BoostPlayer()
     {
-        if (moveVector.y > 0)
+        if (moveVector.y > 0 || mobileBoostActive)
         {
-            surfaceEffector2D.speed = boostSpeed; 
+            surfaceEffector2D.speed = boostSpeed;
         }
         else
         {
             surfaceEffector2D.speed = baseSpeed;
         }
+    }
+
+    public void SetMobileBoost(bool isActive)
+    {
+        mobileBoostActive = isActive;
     }
 
     void CalculateFlips(){
